@@ -340,6 +340,21 @@ root@aistation:/xxx/code/python_cpp_extension# ldconfig
 
 也可以通过修改~/.bashrc文件，加入上述``export LD_LIBRARY_PATH=/...``，然后命令：``source ~/.bashrc``。也可以直接修改配置文件/etc/profile，与修改.bashrc文件一样，对所有用户有效。
 
+​		如果是在服务器上训练模型，比如浪潮的AIStation，则可以将上述命令写入.sh脚本中，然后训练时直接脚本启动即可。如下所示：
+
+```sh
+# add dll path to env
+export LD_LIBRARY_PATH=/jiaozhu01/code/insightface_ir_train
+ldconfig
+
+# run 
+cd /jiaozhu01/code/insightface_ir_train/
+OMP_NUM_THREADS=4 torchrun --standalone --nproc_per_node=2 --master_addr="127.0.0.1" --master_port=12581 train.py configs/mbf200.py
+
+# kill process
+ps -ef | grep "train" | grep -v grep | awk '{print "kill -9 "$2}' | sh
+```
+
 ​		可以通过tools下的Dependencies_x64_Release工具(运行：DependenciesGui.exe)，查看编译好的文件(.pyd)依赖的动态库是否都配置完好，如下图所示：
 
 <center>
