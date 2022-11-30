@@ -220,8 +220,8 @@ if __name__ == '__main__':
                     'src/cpu/warpaffine_opencv.cpp',
                     'src/cpu/warpaffine_torch_v2.cpp'],
                 sources_cuda=[
-                    'src/cuda/warpaffine_cuda.cu',
-                    'src/cuda/warpaffine_kernel.cpp'],
+                    'src/cuda/warpaffine_kernel.cu',
+                    'src/cuda/warpaffine_cuda.cpp'],
                 use_cpp_opencv=True),                      
         ],
         # if use_ninja is True, it will speed up the compilation process.
